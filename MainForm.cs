@@ -39,14 +39,23 @@ namespace CyberChatbot.UI
         {
             try
             {
-                System.Media.SoundPlayer player =
-                    new System.Media.SoundPlayer("Assets/greeting.wav");
+                string path = System.IO.Path.Combine("Assets", "greeting.wav");
 
-                player.Play();
+                if (System.IO.File.Exists(path))
+                {
+                    System.Media.SoundPlayer player =
+                        new System.Media.SoundPlayer(path);
+
+                    player.Play();
+                }
+                else
+                {
+                    MessageBox.Show("Voice file not found in Assets folder.");
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Voice file not found.");
+                MessageBox.Show("Error playing voice: " + ex.Message);
             }
         }
     }
