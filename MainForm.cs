@@ -12,7 +12,7 @@ namespace CyberChatbot.UI
         {
             InitializeComponent();
             txtChat.AppendText("CyberChatbot Online...\n\n");
-        }
+        } 
 
         private void btnSend_Click(object sender, EventArgs e)
         {
