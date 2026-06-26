@@ -1,193 +1,120 @@
-# Cybersecurity Awareness Chatbot
+Cybersecurity Awareness Chatbot – Part 3
+Project Overview
 
-## Project Overview
+This project is a Windows Forms C# application developed as part of a cybersecurity learning assignment. The system simulates a chatbot designed to educate users about cybersecurity concepts such as phishing, password safety, two-factor authentication (2FA), and safe online behaviour.
 
-The Cybersecurity Awareness Chatbot is a Windows Forms (WinForms) application developed in C# to educate users about cybersecurity best practices through an interactive conversation. The chatbot provides guidance on topics such as passwords, phishing scams, and online privacy while maintaining a user-friendly graphical interface.
+The chatbot goes beyond simple responses by including interactive learning features such as a quiz game, task management system, activity logging, and basic natural language processing (NLP) simulation using keyword detection.
 
-This project was developed as part of Part 2 of the Cybersecurity Awareness Chatbot assignment and demonstrates the use of Object-Oriented Programming (OOP), collections, memory handling, sentiment detection, and GUI development.
+Purpose of the System
 
----
+The purpose of this application is to:
 
-## Features
+Educate users about cybersecurity threats and safety practices
+Provide an interactive learning experience
+Simulate real-world chatbot behaviour using NLP techniques
+Demonstrate software development skills using C# and Windows Forms
+Apply object-oriented programming principles in a real application
 
-### GUI Interface
-- Developed using Windows Forms (WinForms).
-- User-friendly layout with chat display, input field, and action buttons.
-- Voice greeting support using a WAV file.
-- Cybersecurity-themed interface design.
+Key Features
+1. Chatbot Engine
+Responds to user input using keyword detection
+Simulates NLP using string matching techniques
+Recognises sentiment (positive/negative inputs)
+Stores simple memory (e.g., user name)
 
-### Keyword Recognition
-The chatbot recognises cybersecurity-related keywords such as:
-- Password
-- Privacy
-- Scam
-- Phishing
+2. Task Management System
+Users can add cybersecurity-related tasks
+Example: “Enable 2FA”, “Update password”
+View all current tasks
+Mark tasks as completed or delete tasks
+Tracks tasks using an in-memory list structure
 
-It provides relevant advice and cybersecurity awareness tips based on the detected keyword.
+3. Cybersecurity Quiz Game
+Interactive multiple-choice quiz
+Covers topics such as phishing, malware, passwords, and online safety
+Provides instant feedback after each answer
+Tracks user score
+Displays final results at the end of the quiz
 
-### Random Responses
-- Uses collections such as Lists and Dictionaries.
-- Provides varied responses for cybersecurity topics.
-- Prevents repetitive chatbot responses.
+4. Activity Logging System
+Records all major user interactions
+Logs actions such as:
+Messages sent to chatbot
+Tasks created or completed
+Quiz attempts
+Displays last 10 activities for review
 
-### Conversation Flow
-- Supports follow-up requests such as:
-  - "Tell me more"
-  - "Explain more"
-  - "Give me another tip"
-- Maintains context during conversations.
+5. Voice Feature
+Plays a WAV audio file greeting using SoundPlayer
+Enhances user experience with audio feedback
 
-### Memory and Recall
-The chatbot can remember:
-- User name
-- Favourite cybersecurity topic
+6. NLP Simulation
+Detects keywords such as:
+“password”
+“phishing”
+“task”
+“quiz”
+Responds differently based on detected intent
+Uses simple string manipulation instead of full AI/NLP libraries
 
-This information is used later to personalise responses.
+Technologies Used
+C# (.NET Windows Forms)
+Visual Studio 2022
+Object-Oriented Programming (OOP)
+File Handling (for logs/tasks if enabled)
+System.Media (for audio playback) 
 
-### Sentiment Detection
-The chatbot detects simple emotions including:
-- Worried
-- Frustrated
-- Curious
-
-Responses are adjusted to provide support and encouragement when necessary.
-
-### Error Handling
-- Handles unknown inputs gracefully.
-- Prevents application crashes caused by unexpected user input.
-- Provides default responses when keywords are not recognised.
-
----
-
-## Project Structure
-
-```text
-CyberChatbot
+CyberChatbot/
 │
-├── UI
-│   ├── MainForm.cs
-│   ├── MainForm.Designer.cs
-│   └── MainForm.resx
-│
-├── Core
+├── Core/
 │   ├── ChatbotEngine.cs
+│   ├── TaskManager.cs
+│   ├── TaskItem.cs
+│   ├── ActivityLogger.cs
 │   ├── KeywordManager.cs
-│   ├── MemoryManager.cs
 │   ├── SentimentDetector.cs
-│   └── RandomResponses.cs
+│   ├── RandomResponses.cs
+│   └── MemoryManager.cs
 │
-├── Models
-│   └── ChatMessage.cs
+├── UI/
+│   └── MainForm.cs
 │
-├── Data
-│   └── ResponseData.cs
-│
-├── Assets
+├── Assets/
 │   ├── greeting.wav
 │   └── ascii.txt
 │
-├── Program.cs
-└── README.md
-```
+└── Program.cs
 
----
+How to Run the Project
+Open the project in Visual Studio 2022
+Restore NuGet packages if needed
+Build the solution (Ctrl + Shift + B)
+Run the application (F5)
+Interact with the chatbot via the GUI
 
-## Technologies Used
+Example Commands
+“Add task enable 2FA”
+“Show tasks”
+“Start quiz”
+“My name is John”
+“What is phishing?”
+“Show activity log”
 
-- C#
-- .NET Framework
-- Windows Forms (WinForms)
-- Visual Studio
-- GitHub
+Learning Outcomes Demonstrated
+GUI development using Windows Forms
+Event-driven programming
+Basic NLP simulation using string matching
+Data management using lists and objects
+Modular software design using classes
+User interaction handling and validation
 
----
+Future Improvements
+Integration with MySQL database for persistent storage
+Advanced NLP using AI libraries
+Improved UI design with tabs and dashboards
+Timer-based reminders for tasks
+User authentication system
 
-## Object-Oriented Programming Concepts
-
-This project demonstrates:
-- Classes
-- Objects
-- Encapsulation
-- Separation of concerns
-- Modular design
-
----
-
-## How to Run the Application
-
-1. Open the project in Visual Studio.
-2. Restore any required dependencies.
-3. Build the solution.
-4. Run the application using:
-   - Start Debugging (F5)
-   - Start Without Debugging (Ctrl + F5)
-
----
-
-## Example Commands
-
-### Password Advice
-
-User:
-```
-Tell me about password safety
-```
-
-Bot:
-```
-Use strong, unique passwords that include letters, numbers, and symbols.
-```
-
-### Privacy Advice
-
-User:
-```
-I'm interested in privacy
-```
-
-Bot:
-```
-Great! I'll remember that you're interested in privacy.
-```
-
-### Sentiment Detection
-
-User:
-```
-I'm worried about online scams
-```
-
-Bot:
-```
-It's understandable to feel worried. Here are some tips to help you stay safe online.
-```
-
----
-
-## Future Improvements
-
-- Database integration
-- User account support
-- More advanced sentiment analysis
-- Speech recognition
-- Additional cybersecurity topics
-
----
-
-## Author
-
-Student Name: RIYAAD KHALIFA
-Student Number: ST10449569
-Module: PROG6221
-Institution: ROSEBANK COLLEGE INTERNATIONAL
-
----
-
-## GitHub Repository
-
-This repository contains:
-- Source code
-- Assets
-- README documentation
-- Commit history
-- Release tags
+Author
+Cybersecurity Awareness Chatbot Project
+Developed as part of academic assignment requirements.
