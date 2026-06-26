@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using CyberChatbot.UI;
 
 namespace CyberChatbot
 {
@@ -11,7 +10,8 @@ namespace CyberChatbot
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            Application.Run(new CyberChatbot.UI.MainForm());
         }
     }
 }

@@ -7,31 +7,39 @@ namespace CyberChatbot.Core
     {
         private Random rand = new Random();
 
-        private Dictionary<string, List<string>> responses = new Dictionary<string, List<string>>()
+        private Dictionary<string, List<string>> responses =
+            new Dictionary<string, List<string>>()
         {
             {
                 "phishing",
-                new List<string>()
+                new List<string>
                 {
-                    "Check email addresses carefully before clicking links.",
-                    "Never share passwords via email or messages.",
-                    "Look for urgent or threatening language in messages."
+                    "Never click suspicious links.",
+                    "Always verify email senders.",
+                    "Report phishing attempts immediately."
+                }
+            },
+
+            {
+                "password",
+                new List<string>
+                {
+                    "Use strong unique passwords.",
+                    "Enable 2FA for extra security.",
+                    "Never reuse passwords across sites."
                 }
             }
         };
 
-        public string Get(string topic)
+        public string GetResponse(string keyword)
         {
-            if (!responses.ContainsKey(topic))
-                return "No tips available.";
+            if (responses.ContainsKey(keyword))
+            {
+                var list = responses[keyword];
+                return list[rand.Next(list.Count)];
+            }
 
-            var list = responses[topic];
-            return list[rand.Next(list.Count)];
-        }
-
-        public string GetRandom(string topic)
-        {
-            return Get(topic);
+            return "";
         }
     }
 }

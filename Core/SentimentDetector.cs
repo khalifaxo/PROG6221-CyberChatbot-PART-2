@@ -1,4 +1,6 @@
-﻿namespace CyberChatbot.Core
+﻿using System;
+
+namespace CyberChatbot.Core
 {
     public class SentimentDetector
     {
@@ -7,13 +9,13 @@
             input = input.ToLower();
 
             if (input.Contains("worried") || input.Contains("scared"))
-                return "worried";
+                return "negative";
 
-            if (input.Contains("frustrated") || input.Contains("confused"))
-                return "frustrated";
+            if (input.Contains("curious") || input.Contains("interested"))
+                return "positive";
 
-            if (input.Contains("curious"))
-                return "curious";
+            if (input.Contains("frustrated"))
+                return "negative";
 
             return "neutral";
         }

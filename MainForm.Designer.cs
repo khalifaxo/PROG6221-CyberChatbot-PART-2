@@ -4,6 +4,12 @@
     {
         private System.ComponentModel.IContainer components = null;
 
+        private System.Windows.Forms.Button btnA;
+        private System.Windows.Forms.Button btnB;
+        private System.Windows.Forms.Button btnC;
+        private System.Windows.Forms.Button btnD;
+        private System.Windows.Forms.Button btnQuiz;
+
         private System.Windows.Forms.RichTextBox txtChat;
         private System.Windows.Forms.TextBox txtInput;
         private System.Windows.Forms.Button btnSend;

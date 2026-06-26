@@ -1,9 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36915.13 d17.14
+VisualStudioVersion = 17.14.36915.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberChatbot", "CyberChatbot.csproj", "{0B56531C-0578-4F9C-A1FD-8E37590A1691}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		ActivityLogger.cs = ActivityLogger.cs
+		TaskItem.cs = TaskItem.cs
+		TaskManager.cs = TaskManager.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{81384C94-8218-42A4-BC2C-232EC42BEDEE}"
+	ProjectSection(SolutionItems) = preProject
+		CyberTask.cs = CyberTask.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{D907A66C-5278-461D-AA4F-91B19E541BF6}"
+	ProjectSection(SolutionItems) = preProject
+		DatabaseHelper.cs = DatabaseHelper.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

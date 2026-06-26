@@ -4,100 +4,95 @@ namespace CyberChatbot.Core
 {
     public class ChatbotEngine
     {
-        private KeywordManager keywordManager = new KeywordManager();
-        private MemoryManager memory = new MemoryManager();
+        private KeywordManager keywords = new KeywordManager();
+        private RandomResponses responses = new RandomResponses();
         private SentimentDetector sentiment = new SentimentDetector();
-        private RandomResponses randomResponses = new RandomResponses();
+        private MemoryManager memory = new MemoryManager();
+        private ActivityLogger logger;
+        private TaskManager tasks;
 
-        private string currentTopic = "";
+        public ChatbotEngine(ActivityLogger logger)
+        {
+            this.logger = logger;
+            this.tasks = new TaskManager(logger);
+        }
 
         public string ProcessInput(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
-                return "Please enter a message.";
+                return "Please enter a valid message.";
 
-            input = input.ToLower();
+            string text = input.ToLower();
 
-            // 🧠 MEMORY
-            if (input.Contains("my name is"))
+            logger.Log("User: " + input);
+
+            // ================= TASK SYSTEM =================
+            if (text.Contains("add task"))
             {
-                memory.UserName = input.Replace("my name is", "").Trim();
-                return $"Nice to meet you, {memory.UserName}. Stay safe online!";
+                string task = input.ToLower().Replace("add task", "").Trim();
+
+                if (string.IsNullOrWhiteSpace(task))
+                    return "Please specify what task to add.";
+
+                return tasks.AddTask(task, "Cybersecurity task");
             }
 
-            if (input.Contains("i'm interested in"))
+            if (text.Contains("show tasks"))
             {
-                memory.Interest = input.Replace("i'm interested in", "").Trim();
-                return $"Got it! I'll remember you're interested in {memory.Interest}.";
+                var list = tasks.GetTasks();
+
+                if (list.Count == 0)
+                    return "No tasks found.";
+
+                string output = "Tasks:\n";
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    output += $"{i + 1}. {list[i].Title} ({(list[i].Completed ? "Done" : "Pending")})\n";
+                }
+
+                return output;
             }
 
-            // 😊 SENTIMENT DETECTION
-            string mood = sentiment.Detect(input);
-
-            if (mood == "worried")
-                return "It's okay to feel worried. Let me help you stay safe.\n\n" + HandleTopic(input);
-
-            if (mood == "frustrated")
-                return "No stress — I'll explain it simply.\n\n" + HandleTopic(input);
-
-            // 🔁 CONVERSATION FLOW
-            if (input.Contains("another tip") && currentTopic != "")
-                return randomResponses.GetRandom(currentTopic);
-
-            if (input.Contains("explain more"))
-                return Explain(currentTopic);
-
-            // 🧠 MAIN LOGIC
-            return HandleTopic(input);
-        }
-
-        private string HandleTopic(string input)
-        {
-            string keywordResponse = keywordManager.Check(input);
-
-            if (keywordResponse != null)
+            // ================= MEMORY =================
+            if (text.Contains("my name is"))
             {
-                if (input.Contains("password")) currentTopic = "password";
-                if (input.Contains("scam") || input.Contains("phishing")) currentTopic = "phishing";
-                if (input.Contains("privacy")) currentTopic = "privacy";
+                string name = input.ToLower().Replace("my name is", "").Trim();
+                memory.Save("name", name);
 
-                return keywordResponse;
+                logger.Log("Saved name: " + name);
+
+                return $"Nice to meet you, {name}. I’ll remember that.";
             }
 
-            if (input.Contains("phishing"))
+            // ================= QUIZ TRIGGER =================
+            if (text.Contains("quiz"))
             {
-                currentTopic = "phishing";
-                return randomResponses.Get("phishing");
+                logger.Log("Quiz requested");
+                return "Open the Quiz section to start the cybersecurity test.";
             }
 
-            if (input.Contains("password"))
+            // ================= SENTIMENT =================
+            string sent = sentiment.Detect(input);
+
+            if (sent == "negative")
             {
-                currentTopic = "password";
-                return keywordManager.PasswordTip();
+                logger.Log("Negative sentiment detected");
+                return "I understand. Stay calm — I’ll help you stay safe online.";
             }
 
-            if (input.Contains("privacy"))
+            // ================= KEYWORDS =================
+            string keyword = keywords.DetectKeyword(input);
+
+            if (!string.IsNullOrEmpty(keyword))
             {
-                currentTopic = "privacy";
-                return keywordManager.PrivacyTip();
+                string response = responses.GetResponse(keyword);
+                logger.Log("Keyword: " + keyword);
+                return response;
             }
 
-            return "I’m not sure I understand. Try rephrasing.";
-        }
-
-        private string Explain(string topic)
-        {
-            switch (topic)
-            {
-                case "phishing":
-                    return "Phishing is when attackers trick you into giving personal information like passwords or bank details.";
-                case "password":
-                    return "Strong passwords should be long, unique, and include symbols, numbers, and letters.";
-                case "privacy":
-                    return "Privacy means controlling who can see your personal information online.";
-                default:
-                    return "I don't have more info on that right now.";
-            }
+            logger.Log("Default response");
+            return "Try: add task, show tasks, quiz, or ask about phishing/password safety.";
         }
     }
 }
